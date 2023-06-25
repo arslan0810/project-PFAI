@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Chat-bot</title>
+    <link rel="stylesheet" href="../static/chat.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        /* Add your CSS styles here */
+        /* ... */
+    </style>
+</head>
+
+<body>
+    <nav class="my-navbar">
+        <div class="logo">
+            <h1>JARVIS-Chat</h1>
+        </div>
+        <div class="links">
+            <a class="border" href="http://127.0.0.1:8000/create">Home</a>
+            <a class="no-boder" href="http://127.0.0.1:8000/register">Register</a>
+            <a class="no-boder" href="http://127.0.0.1:8000/login">Log in</a>
+            <a class="no-boder" href="http://127.0.0.1:8000/chat">Guest Mode</a>
+        </div>
+    </nav>
+
+    <div class="phppot-container">
+        <div class="left">
+
+
+        </div>
+        <div class="right">
+            <div id="chatbot">
+                <h1 style="color: white;">JARVIS-chat</h1>
+                <div class="chat-container">
+                    <div class="chat-message bot-message">
+                        <div class="message">
+                            Hi! How can I assist you today?
+                        </div>
+                    </div>
+                </div>
+                <form action="/process" method="POST" id="chat-form" class="form-inline">
+
+                    <input type="text" id="message-input" name="user_input" class="form-control" placeholder="Type your message..." required>
+                    <button id="send-button" type="submit" class="btn btn-primary">Send</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        const textarea = document.getElementById('message-input');
+        const button_send = document.querySelector('#send-button');
+        const chatbox = document.querySelector(".chat-container");
+
+        button_send.addEventListener('click', (e) => {
+            e.preventDefault();
+            let text_Value = textarea.value;
+            textarea.value = '';
+            console.log(text_Value)
+
+            const newElement = document.createElement('div');
+            newElement.classList.add('chat-message');
+            newElement.classList.add('user-message');
+            newElement.innerHTML = `<div class="message">${text_Value}</div>`;
+            chatbox.appendChild(newElement);
+
+
+            $.ajax({
+                url: '/process',
+                method: 'POST',
+                data: {
+                    user_input: text_Value,
+                },
+                success: function(response) {
+                    const botnewElement = document.createElement('div');
+                    botnewElement.classList.add('chat-message');
+                    botnewElement.classList.add('bot-message');
+                    botnewElement.innerHTML = `<div class="message">${response}</div>`;
+                    console.log(response)
+                    if (response == "Sure i'll turn off the lights") {
+
+                        document.body.style.backgroundImage = 'none';
+                        console.log('turning off the lights')
+
+                        // Add a background color
+                        document.body.style.backgroundColor = 'black';
+
+                        textarea.style.color = "white"
+                    }
+                    if (response == "Sure i'll turn on the lights") {
+                        document.body.style.backgroundImage = 'none';
+                        console.log('turning on the lights')
+
+                        // Add a background color
+                        document.body.style.backgroundColor = 'white';
+                        textarea.style.color = "black"
+
+                    }
+                    chatbox.appendChild(botnewElement);
+                    $(chatbox).animate({
+                        scrollTop: chatbot.scrollHeight * 10
+                    });
+                },
+                error: function(error) {
+                    const botnewElement = document.createElement('div');
+                    botnewElement.classList.add('chat-message');
+                    botnewElement.classList.add('bot-message');
+                    botnewElement.innerHTML = `<div class="message">${error}</div>`;
+                    chatbox.appendChild(botnewElement);
+                }
+            });
+
+
+        });
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<HTML>
+
+<HEAD>
+    <TITLE>Create</TITLE>
+    <link rel="stylesheet" href="../static/create.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+
+    </style>
+</HEAD>
+
+<BODY>
+    <nav class="my-navbar">
+        <div class="logo">
+            <h1>JARVIS-Chat</h1>
+        </div>
+        <div class="links">
+            <a class="border" href="http://127.0.0.1:8000/create">Home</a>
+            <a class="no-boder" href="http://127.0.0.1:8000/register">Register</a>
+            <a class="no-boder" href="http://127.0.0.1:8000/login">Log in</a>
+            <a class="no-boder" href="http://127.0.0.1:8000/chat">Guest Mode</a>
+        </div>
+    </nav>
+    <div class="phppot-container">
+        <div class="left">
+
+        </div>
+        <div class="right">
+            <h1> Artificial <br> intelligence
+            </h1>
+            <h2>AI powered Chatbot</h2>
+
+            <div class="buttons">
+
+                <button class="btn-btn" type="submit" name="Guest-btn" id="Guest-btn" value="Guest Mode"> LOG IN </button>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    <script>
+        const signupForm = document.querySelector("#Sign-in-btn");
+        const guest_button = document.querySelector("#Guest-btn");
+
+        signupForm.addEventListener("click", (e) => {
+            event.preventDefault(); // Prevent form submission
+            console.log("sign in working");
+            window.location.href = 'http://127.0.0.1:8000/login';
+        });
+
+        guest_button.addEventListener("click", (e) => {
+            event.preventDefault(); // Prevent form submission
+            console.log("guest_button working");
+            window.location.href = 'http://127.0.0.1:8000/guest';
+        });
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="../static/register.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        /* Add your CSS styles here */
+        /* ... */
+    </style>
+</head>
+
+<body>
+    <nav class="my-navbar">
+        <div class="logo">
+            <h1>JARVIS-Chat</h1>
+        </div>
+        <div class="links">
+            <a class="border" href="http://127.0.0.1:8000/create">Home</a>
+            <a class="no-boder" href="http://127.0.0.1:8000/register">Register</a>
+            <a class="no-boder" href="http://127.0.0.1:8000/login">Log in</a>
+            <a class="no-boder" href="http://127.0.0.1:8000/chat">Guest Mode</a>
+        </div>
+    </nav>
+
+    <div class="phppot-container">
+
+        <div class="left">
+
+        </div>
+        <div class="right">
+            <h1>Create an Account</h1>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="name">Username:</label>
+                    <input type="text" class="form-control" id="username" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="username">Email:</label>
+                    <input type="text" class="form-control" id="email" placeholder="Enter username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password" required>
+                </div>
+                <button type="button" id="btn-btn" class="btn-btn">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        var signupForm = document.querySelector("#btn-btn");
+        signupForm.addEventListener("click", (e) => {
+            event.preventDefault();
+
+            var valid = true;
+
+
+            if (valid) {
+                var username = document.querySelector("#username").value;
+                var email = document.querySelector("#email").value;
+                var password = document.querySelector("#password").value;
+                $.ajax({
+                    url: '/register',
+                    method: 'POST',
+                    data: {
+                        username: username,
+                        email: email,
+                        password: password
+                    },
+                    success: function(response) {
+                        console.log("Registration successful!");
+                    },
+                    error: function(error) {
+                        ("Registration failed:", response);
+                    }
+                });
+            }
+        })
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</body>
+
+</html>

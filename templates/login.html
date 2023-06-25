@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login</title>
+    <!-- <link rel="stylesheet" href="../static/create.css"> -->
+    <link rel="stylesheet" href="../static/login.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        /* Add the CSS styles here */
+        /* ... */
+    </style>
+</head>
+
+<body>
+    <nav class="my-navbar">
+        <div class="logo">
+            <h1>JARVIS-Chat</h1>
+        </div>
+        <div class="links">
+            <a class="border" href="http://127.0.0.1:8000/create">Home</a>
+            <a class="no-boder" href="http://127.0.0.1:8000/register">Register</a>
+            <a class="no-boder" href="http://127.0.0.1:8000/login">Log in</a>
+            <a class="no-boder" href="http://127.0.0.1:8000/chat">Guest Mode</a>
+        </div>
+    </nav>
+
+    <div class="phppot-container">
+        <div class="left">
+        </div>
+        <div class="right">
+            <!-- Add your login form here -->
+            <form>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter password">
+                </div>
+                <button type="submit" id="login-btn" class="btn-btn">Login</button>
+            </form>
+        </div>
+
+
+        <script>
+            const loginForm = document.querySelector("#login-btn");
+            loginForm.addEventListener("click", (e) => {
+                event.preventDefault(); // Prevent form submission
+                console.log("it is working")
+                var valid = true;
+                // ... existing validation code ...
+
+                if (valid) {
+                    var email = document.querySelector("#email").value;
+                    var password = document.querySelector("#password").value;
+
+                    var userDetails = {
+                        email: email,
+                        password: password
+                    };
+
+                    $.ajax({
+                        url: '/process_login',
+                        method: 'POST',
+                        data: userDetails,
+                        success: function(response) {
+                            console.log("login successful!");
+                            window.location.href = 'http://127.0.0.1:8000/chat'
+
+                        },
+                        error: function(error) {
+                            console.log("Registration failed:");
+
+                        }
+                    });
+                }
+            })
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</body>
+
+</html>
